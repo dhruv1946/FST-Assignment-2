@@ -6,7 +6,7 @@ import { Shield, ShoppingBag, User as UserIcon, LogOut, LogIn, LayoutDashboard }
 
 export function Navbar() {
   const { data: session } = useSession()
-  const user = session?.user
+  const user = session?.user as (Record<string, any> & { name?: string; email?: string; role?: string }) | undefined
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-950/80 backdrop-blur-md">
