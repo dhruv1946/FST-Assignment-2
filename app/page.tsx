@@ -1,124 +1,112 @@
 import { prisma } from "@/lib/db"
+import { ProductCatalog } from "@/components/ProductCatalog"
+import { ArrowRight, Sparkles, Activity, ShieldCheck, Database, Layers } from "lucide-react"
 import Link from "next/link"
-import { Database, Users, ShoppingCart, Activity, ShieldCheck, ArrowRight } from "lucide-react"
 
 export const dynamic = "force-dynamic"
 
 export default async function HomePage() {
-  // Aggregate real-time metrics from the seeded Prisma database
-  const [userCount, productCount, orderCount, auditLogCount, recentProducts] = await Promise.all([
+  const [userCount, productCount, orderCount, auditCount, products] = await Promise.all([
     prisma.user.count(),
     prisma.product.count(),
     prisma.order.count(),
     prisma.auditLog.count(),
     prisma.product.findMany({
-      take: 8,
       orderBy: { createdAt: "desc" },
+      take: 60,
     }),
   ])
 
   return (
-    <div className="space-y-10">
-      {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-slate-900 via-slate-900 to-sky-950/40 p-8 sm:p-12 border border-slate-800 shadow-2xl">
-        <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-sky-500/10 text-sky-400 border border-sky-500/20">
-            <ShieldCheck className="w-3.5 h-3.5" />
-            <span>Assignment 2 Backend & Service Pipeline</span>
+    <div className="space-y-14">
+      {/* Editorial Hero */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-b from-neutral-900/80 to-neutral-950 border border-neutral-800/80 p-8 sm:p-14 shadow-2xl">
+        <div className="max-w-3xl space-y-6">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono tracking-wider uppercase bg-neutral-800/60 text-neutral-300 border border-neutral-700/60">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            <span>Studio Series • Catalog 2026</span>
           </div>
-          <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            Automated Relational Seeding & Secure Endpoints
+
+          <h1 className="text-4xl sm:text-6xl font-extrabold tracking-tight text-neutral-50 leading-[1.1]">
+            Objects designed for quiet focus and longevity.
           </h1>
-          <p className="text-slate-400 text-base sm:text-lg leading-relaxed">
-            Engineered with <strong className="text-slate-200">Prisma ORM</strong>, multi-entity relational schema,
-            <strong className="text-slate-200"> Faker.js</strong> automated seeding, <strong className="text-slate-200">Better Auth RBAC</strong>, and <strong className="text-slate-200">Resend</strong> transactional lifecycle notifications.
+
+          <p className="text-neutral-400 text-base sm:text-lg leading-relaxed max-w-2xl font-normal">
+            A curated suite of tactile workstation hardware, acoustic modules, and archival tools.
+            Engineered with durable materials and structured relational precision.
           </p>
-          <div className="pt-2 flex flex-wrap gap-4">
+
+          <div className="pt-2 flex flex-wrap items-center gap-4">
+            <a
+              href="#catalog"
+              className="inline-flex items-center gap-2 bg-neutral-100 hover:bg-white text-neutral-950 font-semibold px-6 py-3 rounded-xl text-sm transition-all shadow-sm"
+            >
+              <span>Explore Collection</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
             <Link
               href="/dashboard"
-              className="inline-flex items-center gap-2 bg-sky-600 hover:bg-sky-500 text-white font-medium px-5 py-2.5 rounded-lg shadow-lg shadow-sky-600/20 transition-all text-sm"
+              className="inline-flex items-center gap-2 bg-neutral-900 hover:bg-neutral-800/90 text-neutral-300 hover:text-white font-medium px-5 py-3 rounded-xl border border-neutral-800 text-sm transition-all"
             >
-              <span>Explore Dashboard</span>
-              <ArrowRight className="w-4 h-4" />
-            </Link>
-            <Link
-              href="/admin"
-              className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-slate-200 font-medium px-5 py-2.5 rounded-lg border border-slate-700 transition-all text-sm"
-            >
-              <span>Inspect Admin & Audit Logs</span>
+              <span>View Your Orders</span>
             </Link>
           </div>
         </div>
       </section>
 
-      {/* Database Seeding Metrics */}
-      <section className="space-y-4">
-        <div className="flex items-center justify-between">
-          <h2 className="text-xl font-bold text-slate-200 flex items-center gap-2">
-            <Database className="w-5 h-5 text-sky-400" />
-            <span>Live Database Telemetry (Seeded via Faker.js)</span>
-          </h2>
-          <span className="text-xs text-slate-400">Target Schema: Users • Products • Orders • AuditLogs</span>
+      {/* Main Catalog Section */}
+      <section id="catalog" className="space-y-6">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div>
+            <h2 className="text-2xl font-bold tracking-tight text-neutral-100">
+              Curated Equipment
+            </h2>
+            <p className="text-xs text-neutral-400 mt-1 font-mono">
+              Displaying {products.length} registered catalog items
+            </p>
+          </div>
+        </div>
+
+        <ProductCatalog initialProducts={products} />
+      </section>
+
+      {/* Discrete Infrastructure Health Panel */}
+      <section className="rounded-2xl bg-neutral-900/30 border border-neutral-800/60 p-6 sm:p-8 space-y-5">
+        <div className="flex items-center justify-between border-b border-neutral-800/60 pb-4">
+          <div className="flex items-center gap-2 text-xs font-mono uppercase tracking-widest text-neutral-400">
+            <Layers className="w-4 h-4 text-neutral-400" />
+            <span>Core Data Architecture & Telemetry</span>
+          </div>
+          <span className="text-[11px] font-mono text-emerald-400 flex items-center gap-1.5">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
+            <span>All Systems Nominal</span>
+          </span>
         </div>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-            <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs uppercase tracking-wider font-semibold">Total Users</span>
-              <Users className="w-4 h-4 text-sky-400" />
-            </div>
-            <div className="text-3xl font-bold text-white">{userCount}</div>
-            <p className="text-[11px] text-slate-500 mt-1">1 Admin + 49 Relational Users</p>
+          <div className="bg-neutral-950/60 border border-neutral-800/50 p-4 rounded-xl">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">Registered Accounts</span>
+            <div className="text-2xl font-bold font-mono text-neutral-100 mt-1">{userCount}</div>
+            <span className="text-[10px] text-neutral-400">Auth Sessions Active</span>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-            <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs uppercase tracking-wider font-semibold">Catalog Items</span>
-              <ShoppingCart className="w-4 h-4 text-emerald-400" />
-            </div>
-            <div className="text-3xl font-bold text-white">{productCount}</div>
-            <p className="text-[11px] text-slate-500 mt-1">Normalized Across 8 Categories</p>
+          <div className="bg-neutral-950/60 border border-neutral-800/50 p-4 rounded-xl">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">Active Inventory</span>
+            <div className="text-2xl font-bold font-mono text-neutral-100 mt-1">{productCount}</div>
+            <span className="text-[10px] text-neutral-400">Normalized Units</span>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-            <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs uppercase tracking-wider font-semibold">Orders Tracked</span>
-              <Activity className="w-4 h-4 text-amber-400" />
-            </div>
-            <div className="text-3xl font-bold text-white">{orderCount}</div>
-            <p className="text-[11px] text-slate-500 mt-1">Multi-item relational transactions</p>
+          <div className="bg-neutral-950/60 border border-neutral-800/50 p-4 rounded-xl">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">Transactions</span>
+            <div className="text-2xl font-bold font-mono text-neutral-100 mt-1">{orderCount}</div>
+            <span className="text-[10px] text-neutral-400">Orders Processed</span>
           </div>
 
-          <div className="bg-slate-900 border border-slate-800 p-5 rounded-xl">
-            <div className="flex items-center justify-between text-slate-400 mb-2">
-              <span className="text-xs uppercase tracking-wider font-semibold">Audit Logs</span>
-              <ShieldCheck className="w-4 h-4 text-purple-400" />
-            </div>
-            <div className="text-3xl font-bold text-white">{auditLogCount}</div>
-            <p className="text-[11px] text-slate-500 mt-1">Immutable security event records</p>
+          <div className="bg-neutral-950/60 border border-neutral-800/50 p-4 rounded-xl">
+            <span className="text-[10px] font-mono uppercase tracking-wider text-neutral-400">Security Events</span>
+            <div className="text-2xl font-bold font-mono text-neutral-100 mt-1">{auditCount}</div>
+            <span className="text-[10px] text-neutral-400">Immutable Audit Logs</span>
           </div>
-        </div>
-      </section>
-
-      {/* Featured Products Catalog */}
-      <section className="space-y-4">
-        <h2 className="text-xl font-bold text-slate-200">Catalog Preview</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {recentProducts.map((product) => (
-            <div key={product.id} className="bg-slate-900/70 border border-slate-800 hover:border-slate-700 transition-colors p-5 rounded-xl flex flex-col justify-between">
-              <div>
-                <span className="text-[10px] font-semibold text-sky-400 bg-sky-950/60 px-2 py-0.5 rounded border border-sky-800/40 uppercase">
-                  {product.category}
-                </span>
-                <h3 className="font-semibold text-white mt-2 text-base line-clamp-1">{product.name}</h3>
-                <p className="text-xs text-slate-400 mt-1 line-clamp-2">{product.description}</p>
-              </div>
-              <div className="pt-4 mt-4 border-t border-slate-800 flex items-center justify-between">
-                <span className="text-lg font-bold text-emerald-400">${product.price.toFixed(2)}</span>
-                <span className="text-xs text-slate-500">Stock: {product.stock}</span>
-              </div>
-            </div>
-          ))}
         </div>
       </section>
     </div>

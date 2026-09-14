@@ -21,43 +21,44 @@ interface OrderConfirmationEmailProps {
 
 export const OrderConfirmationEmail = ({
   orderId = "ord_mock_12345",
-  productName = "Sample Product",
+  productName = "Studio Hardware Unit",
   quantity = 1,
-  total = 99.99,
-  customerName = "Valued Customer",
+  total = 149.00,
+  customerName = "Valued Client",
 }: OrderConfirmationEmailProps) => {
   return (
     <Html>
       <Head />
-      <Body style={{ backgroundColor: "#0f172a", fontFamily: "sans-serif", color: "#f8fafc", padding: "20px" }}>
-        <Container style={{ backgroundColor: "#1e293b", borderRadius: "8px", padding: "32px", maxWidth: "560px", margin: "0 auto" }}>
-          <Heading style={{ color: "#38bdf8", fontSize: "24px", margin: "0 0 16px" }}>Order Confirmed! 🎉</Heading>
-          <Text style={{ fontSize: "16px", lineHeight: "24px", color: "#cbd5e1" }}>
-            Hi {customerName}, thank you for your order. We have successfully received your payment and are processing it.
+      <Body style={{ backgroundColor: "#0a0a0a", fontFamily: "sans-serif", color: "#ededed", padding: "24px" }}>
+        <Container style={{ backgroundColor: "#171717", borderRadius: "12px", padding: "32px", maxWidth: "540px", margin: "0 auto", border: "1px solid #262626" }}>
+          <Heading style={{ color: "#ffffff", fontSize: "22px", margin: "0 0 12px", letterSpacing: "-0.5px" }}>Order Confirmed</Heading>
+          <Text style={{ fontSize: "14px", lineHeight: "22px", color: "#a3a3a3" }}>
+            Hello {customerName}, your acquisition has been verified and registered with Aura Studio.
           </Text>
-          <Hr style={{ borderColor: "#334155", margin: "24px 0" }} />
-          <Section style={{ backgroundColor: "#0f172a", borderRadius: "6px", padding: "16px" }}>
-            <Text style={{ margin: "4px 0", color: "#94a3b8", fontSize: "14px" }}>Order ID: <strong style={{ color: "#f8fafc" }}>{orderId}</strong></Text>
-            <Text style={{ margin: "4px 0", color: "#94a3b8", fontSize: "14px" }}>Item: <strong style={{ color: "#f8fafc" }}>{productName}</strong> (x{quantity})</Text>
-            <Text style={{ margin: "4px 0", color: "#94a3b8", fontSize: "14px" }}>Total Amount: <strong style={{ color: "#4ade80" }}>${total.toFixed(2)}</strong></Text>
+          <Hr style={{ borderColor: "#262626", margin: "20px 0" }} />
+          <Section style={{ backgroundColor: "#0a0a0a", borderRadius: "8px", padding: "16px", border: "1px solid #262626" }}>
+            <Text style={{ margin: "4px 0", color: "#737373", fontSize: "13px" }}>Order Reference: <strong style={{ color: "#ededed" }}>{orderId}</strong></Text>
+            <Text style={{ margin: "4px 0", color: "#737373", fontSize: "13px" }}>Item: <strong style={{ color: "#ededed" }}>{productName}</strong> (x{quantity})</Text>
+            <Text style={{ margin: "4px 0", color: "#737373", fontSize: "13px" }}>Total: <strong style={{ color: "#ffffff" }}>${total.toFixed(2)}</strong></Text>
           </Section>
-          <Hr style={{ borderColor: "#334155", margin: "24px 0" }} />
+          <Hr style={{ borderColor: "#262626", margin: "20px 0" }} />
           <Button
             href="http://localhost:3000/dashboard"
             style={{
-              backgroundColor: "#2563eb",
-              color: "#ffffff",
-              borderRadius: "6px",
-              padding: "12px 24px",
+              backgroundColor: "#ffffff",
+              color: "#0a0a0a",
+              borderRadius: "8px",
+              padding: "10px 20px",
               textDecoration: "none",
               fontWeight: 600,
+              fontSize: "13px",
               display: "inline-block",
             }}
           >
-            View Your Dashboard
+            Review Orders
           </Button>
-          <Text style={{ fontSize: "12px", color: "#64748b", marginTop: "32px" }}>
-            FST Assignment 2 • Automated Transactional Notification Pipeline
+          <Text style={{ fontSize: "11px", color: "#525252", marginTop: "28px" }}>
+            Aura Studio • Precision Hardware & Workstation Design
           </Text>
         </Container>
       </Body>

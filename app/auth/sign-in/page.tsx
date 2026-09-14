@@ -8,7 +8,7 @@ import { LogIn, ArrowRight } from "lucide-react"
 
 export default function SignInPage() {
   const router = useRouter()
-  const [email, setEmail] = useState("admin@fst-assignment.dev")
+  const [email, setEmail] = useState("admin@aurastudio.dev")
   const [password, setPassword] = useState("password123")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState("")
@@ -38,59 +38,59 @@ export default function SignInPage() {
   }
 
   return (
-    <div className="max-w-md mx-auto my-12 bg-slate-900 border border-slate-800 p-8 rounded-2xl shadow-xl space-y-6">
+    <div className="max-w-sm mx-auto my-16 bg-neutral-900/60 border border-neutral-800/80 p-8 rounded-3xl shadow-xl space-y-6">
       <div className="text-center space-y-2">
-        <div className="inline-flex p-3 rounded-full bg-sky-500/10 text-sky-400 mb-1">
-          <LogIn className="w-6 h-6" />
+        <div className="inline-flex p-3 rounded-2xl bg-neutral-800/80 text-neutral-200 mb-1 border border-neutral-700/60">
+          <LogIn className="w-5 h-5" />
         </div>
-        <h1 className="text-2xl font-bold text-white">Sign In to Your Account</h1>
-        <p className="text-xs text-slate-400">
-          Enter credentials or test with seeded admin: <code className="text-sky-300">admin@fst-assignment.dev</code>
+        <h1 className="text-xl font-bold tracking-tight text-neutral-100">Sign in to Aura</h1>
+        <p className="text-xs text-neutral-400 font-mono">
+          Demo staff: <code className="text-neutral-200">admin@aurastudio.dev</code>
         </p>
       </div>
 
       {error && (
-        <div className="bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs p-3 rounded-lg">
+        <div className="bg-rose-500/10 border border-rose-500/30 text-rose-300 text-xs p-3 rounded-xl font-mono">
           {error}
         </div>
       )}
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1">Email Address</label>
+          <label className="block text-xs font-mono uppercase tracking-wider text-neutral-400 mb-1.5">Email</label>
           <input
             type="email"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
-            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-sky-500"
+            className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-neutral-600 transition-colors font-mono"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-300 mb-1">Password</label>
+          <label className="block text-xs font-mono uppercase tracking-wider text-neutral-400 mb-1.5">Password</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-            className="w-full bg-slate-950 border border-slate-800 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-sky-500"
+            className="w-full bg-neutral-950 border border-neutral-800 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none focus:border-neutral-600 transition-colors font-mono"
           />
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full flex items-center justify-center gap-2 bg-sky-600 hover:bg-sky-500 disabled:opacity-50 text-white font-medium py-2.5 rounded-lg text-sm transition-colors"
+          className="w-full flex items-center justify-center gap-2 bg-neutral-100 hover:bg-white disabled:opacity-50 text-neutral-950 font-semibold py-2.5 rounded-xl text-xs transition-all shadow-sm cursor-pointer"
         >
-          <span>{loading ? "Authenticating..." : "Sign In"}</span>
-          <ArrowRight className="w-4 h-4" />
+          <span>{loading ? "Authenticating..." : "Continue"}</span>
+          <ArrowRight className="w-3.5 h-3.5" />
         </button>
       </form>
 
-      <div className="text-center text-xs text-slate-500">
-        Don&apos;t have an account?{" "}
-        <Link href="/auth/sign-up" className="text-sky-400 hover:underline">
+      <div className="text-center text-xs text-neutral-500">
+        New to Aura?{" "}
+        <Link href="/auth/sign-up" className="text-neutral-300 hover:text-white underline underline-offset-4">
           Create account
         </Link>
       </div>

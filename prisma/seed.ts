@@ -17,9 +17,9 @@ const CATEGORIES = [
 const ORDER_STATUSES = ["PENDING", "CONFIRMED", "SHIPPED", "DELIVERED", "CANCELLED"]
 
 async function main() {
-  console.log("🌱 Starting seed...")
+  console.log("ðŸŒ± Starting seed...")
 
-  // ── Clean existing data ──────────────────────────────────────────────────
+  // â”€â”€ Clean existing data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   await prisma.auditLog.deleteMany()
   await prisma.order.deleteMany()
   await prisma.product.deleteMany()
@@ -27,13 +27,13 @@ async function main() {
   await prisma.account.deleteMany()
   await prisma.verification.deleteMany()
   await prisma.user.deleteMany()
-  console.log("✅ Cleaned existing data")
+  console.log("âœ… Cleaned existing data")
 
-  // ── Create 1 admin + 49 regular users (50 total) ───────────────────────
+  // â”€â”€ Create 1 admin + 49 regular users (50 total) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const adminUser = await prisma.user.create({
     data: {
       name: "Admin User",
-      email: "admin@fst-assignment.dev",
+      email: "admin@aurastudio.dev",
       emailVerified: true,
       role: "ADMIN",
     },
@@ -54,9 +54,9 @@ async function main() {
   )
 
   const allUsers = [adminUser, ...regularUsers]
-  console.log(`✅ Created ${allUsers.length} users (1 admin + 49 regular)`)
+  console.log(`âœ… Created ${allUsers.length} users (1 admin + 49 regular)`)
 
-  // ── Create 100 products ───────────────────────────────────────────────
+  // â”€â”€ Create 100 products â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const products = await Promise.all(
     Array.from({ length: 100 }, () =>
       prisma.product.create({
@@ -71,9 +71,9 @@ async function main() {
       })
     )
   )
-  console.log(`✅ Created ${products.length} products`)
+  console.log(`âœ… Created ${products.length} products`)
 
-  // ── Create 200 orders ─────────────────────────────────────────────────
+  // â”€â”€ Create 200 orders â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const orders = await Promise.all(
     Array.from({ length: 200 }, () => {
       const user = faker.helpers.arrayElement(allUsers)
@@ -92,9 +92,9 @@ async function main() {
       })
     })
   )
-  console.log(`✅ Created ${orders.length} orders`)
+  console.log(`âœ… Created ${orders.length} orders`)
 
-  // ── Create audit log entries ──────────────────────────────────────────
+  // â”€â”€ Create audit log entries â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const auditActions = [
     { action: "CREATE_PRODUCT", entity: "Product" },
     { action: "PLACE_ORDER", entity: "Order" },
@@ -126,10 +126,10 @@ async function main() {
       })
     })
   )
-  console.log("✅ Created 150 audit log entries")
+  console.log("âœ… Created 150 audit log entries")
 
-  console.log("\n🎉 Seed complete!")
-  console.log(`   Admin credentials: admin@fst-assignment.dev`)
+  console.log("\nðŸŽ‰ Seed complete!")
+  console.log(`   Admin credentials: admin@aurastudio.dev`)
   console.log(`   Total users: ${allUsers.length}`)
   console.log(`   Total products: ${products.length}`)
   console.log(`   Total orders: ${orders.length}`)
@@ -137,7 +137,7 @@ async function main() {
 
 main()
   .catch((e) => {
-    console.error("❌ Seed failed:", e)
+    console.error("âŒ Seed failed:", e)
     process.exit(1)
   })
   .finally(async () => {

@@ -15,11 +15,10 @@ export async function sendOrderConfirmationNotification(params: {
   total: number
 }) {
   try {
-    // Attempt dispatch via Resend
     let emailId = `mock_email_${Date.now()}`
     if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== "re_placeholder_key") {
       const { data } = await resend.emails.send({
-        from: "FST Store <notifications@resend.dev>",
+        from: "Aura Studio <notifications@resend.dev>",
         to: params.to,
         subject: `Order Confirmation #${params.orderId}`,
         react: OrderConfirmationEmail({
@@ -33,7 +32,6 @@ export async function sendOrderConfirmationNotification(params: {
       if (data?.id) emailId = data.id
     }
 
-    // Persist email dispatch log in AuditLog
     await prisma.auditLog.create({
       data: {
         userId: params.userId,
@@ -65,9 +63,9 @@ export async function sendWelcomeNotification(params: {
     let emailId = `mock_welcome_${Date.now()}`
     if (process.env.RESEND_API_KEY && process.env.RESEND_API_KEY !== "re_placeholder_key") {
       const { data } = await resend.emails.send({
-        from: "FST Store <notifications@resend.dev>",
+        from: "Aura Studio <notifications@resend.dev>",
         to: params.to,
-        subject: "Welcome to FST Assignment 2!",
+        subject: "Welcome to Aura Studio",
         react: WelcomeEmail({ name: params.name, email: params.to }),
       })
       if (data?.id) emailId = data.id

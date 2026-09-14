@@ -22,26 +22,27 @@ export const WelcomeEmail = ({
   return (
     <Html>
       <Head />
-      <Body style={{ backgroundColor: "#0f172a", fontFamily: "sans-serif", color: "#f8fafc", padding: "20px" }}>
-        <Container style={{ backgroundColor: "#1e293b", borderRadius: "8px", padding: "32px", maxWidth: "560px", margin: "0 auto" }}>
-          <Heading style={{ color: "#38bdf8", fontSize: "24px", margin: "0 0 16px" }}>Welcome aboard, {name}! 🚀</Heading>
-          <Text style={{ fontSize: "16px", lineHeight: "24px", color: "#cbd5e1" }}>
-            Your account ({email}) has been successfully created and verified on the FST Assignment 2 fullstack platform.
+      <Body style={{ backgroundColor: "#0a0a0a", fontFamily: "sans-serif", color: "#ededed", padding: "24px" }}>
+        <Container style={{ backgroundColor: "#171717", borderRadius: "12px", padding: "32px", maxWidth: "540px", margin: "0 auto", border: "1px solid #262626" }}>
+          <Heading style={{ color: "#ffffff", fontSize: "22px", margin: "0 0 12px", letterSpacing: "-0.5px" }}>Welcome to Aura Studio</Heading>
+          <Text style={{ fontSize: "14px", lineHeight: "22px", color: "#a3a3a3" }}>
+            Hello {name}, your membership profile ({email}) is now active.
           </Text>
-          <Hr style={{ borderColor: "#334155", margin: "24px 0" }} />
+          <Hr style={{ borderColor: "#262626", margin: "20px 0" }} />
           <Button
             href="http://localhost:3000/dashboard"
             style={{
-              backgroundColor: "#2563eb",
-              color: "#ffffff",
-              borderRadius: "6px",
-              padding: "12px 24px",
+              backgroundColor: "#ffffff",
+              color: "#0a0a0a",
+              borderRadius: "8px",
+              padding: "10px 20px",
               textDecoration: "none",
               fontWeight: 600,
+              fontSize: "13px",
               display: "inline-block",
             }}
           >
-            Access Dashboard
+            Visit Studio
           </Button>
         </Container>
       </Body>
